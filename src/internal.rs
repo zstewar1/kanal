@@ -1,9 +1,12 @@
 use std::{collections::VecDeque, sync::Arc};
 
-#[cfg(not(feature = "std-mutex"))]
-use crate::mutex::{Mutex, MutexGuard};
-#[cfg(feature = "std-mutex")]
-use std::sync::{Mutex, MutexGuard};
+// #[cfg(not(feature = "std-mutex"))]
+// use crate::mutex::{Mutex, MutexGuard};
+// #[cfg(feature = "std-mutex")]
+// use std::sync::{Mutex, MutexGuard};
+// use crate::mutex::{Mutex, MutexGuard};
+use parking_lot::{Mutex, MutexGuard};
+//use std::sync::{Mutex, MutexGuard};
 //use spin::mutex::Mutex;
 
 use crate::signal::Signal;
@@ -12,10 +15,7 @@ pub type Internal<T> = Arc<Mutex<ChannelInternal<T>>>;
 
 #[inline(always)]
 pub fn acquire_internal<T>(internal: &'_ Internal<T>) -> MutexGuard<'_, ChannelInternal<T>> {
-    #[cfg(not(feature = "std-mutex"))]
     return internal.lock();
-    #[cfg(feature = "std-mutex")]
-    internal.lock().unwrap()
 }
 
 /// Internal of channel that holds queues, wait lists and general state of channel,

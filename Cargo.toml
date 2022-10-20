@@ -1,5 +1,5 @@
 [package]
-name = "kanal"
+name = "kanal-parkinglot"
 version = "0.1.0-pre2"
 edition = "2021"
 authors = ["Khashayar Fereidani"]
@@ -13,6 +13,7 @@ readme = "README.md"
 [dependencies]
 lock_api = "0.4"
 pin-project-lite = "0.2"
+parking_lot = "0.12"
 
 [dev-dependencies]
 tokio = { version = "1", features =["rt-multi-thread", "test-util", "macros"] }

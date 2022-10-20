@@ -3,8 +3,8 @@ use std::thread::Thread;
 use std::time::{Duration, Instant};
 
 //use crate::atomic_waker::AtomicWaker;
-#[cfg(feature = "async")]
-use crate::mutex::Mutex;
+use parking_lot::Mutex;
+
 use crate::state::{State, LOCKED, LOCKED_STARVATION, TERMINATED, UNLOCKED};
 
 #[cfg(feature = "async")]
