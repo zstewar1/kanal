@@ -1,5 +1,5 @@
 [package]
-name = "kanal"
+name = "kanal-stdlock"
 version = "0.1.0-pre2"
 edition = "2021"
 authors = ["Khashayar Fereidani"]

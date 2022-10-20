@@ -2,10 +2,8 @@ use std::marker::PhantomData;
 use std::thread::Thread;
 use std::time::{Duration, Instant};
 
-//use crate::atomic_waker::AtomicWaker;
-#[cfg(feature = "async")]
-use crate::mutex::Mutex;
 use crate::state::{State, LOCKED, LOCKED_STARVATION, TERMINATED, UNLOCKED};
+use std::sync::Mutex;
 
 #[cfg(feature = "async")]
 pub struct AsyncSignal<T> {
@@ -26,10 +24,10 @@ pub struct WakerStore(Mutex<Option<std::task::Waker>>);
 #[cfg(feature = "async")]
 impl WakerStore {
     pub fn register(&self, w: &std::task::Waker) {
-        self.0.lock().replace(w.clone());
+        self.0.lock().unwrap().replace(w.clone());
     }
     pub fn take(&self) -> Option<std::task::Waker> {
-        return self.0.lock().take();
+        return self.0.lock().unwrap().take();
     }
 }
 
